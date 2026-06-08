@@ -237,7 +237,8 @@ try {
                     <th>Pesan</th>
                     <th>Status</th>
                     <th>Tanggal</th>
-                    <th>Aksi</th> </tr>
+                    <th>Aksi</th>
+                </tr>
             </thead>
             <tbody>
             <?php foreach ($donasi as $i => $d):
@@ -273,13 +274,9 @@ try {
                         <button type="button" class="action-btn btn-edit" onclick="openUpdateModal(<?= $d['id'] ?>, '<?= htmlspecialchars($d['status']) ?>')" title="Update Status">
                             <i data-lucide="edit-2" style="width:14px;height:14px;"></i>
                         </button>
-                        <form method="POST" style="margin:0;" onsubmit="return confirm('Yakin ingin menghapus data donasi ini secara permanen?');">
-                            <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="donasi_id" value="<?= $d['id'] ?>">
-                            <button type="submit" class="action-btn btn-delete" title="Hapus Data">
-                                <i data-lucide="trash-2" style="width:14px;height:14px;"></i>
-                            </button>
-                        </form>
+                        <button type="button" class="action-btn btn-delete" onclick="openDeleteModal(<?= $d['id'] ?>)" title="Hapus Data">
+                            <i data-lucide="trash-2" style="width:14px;height:14px;"></i>
+                        </button>
                     </div>
                 </td>
                 
@@ -420,23 +417,52 @@ try {
     </div>
 </div>
 
+<div id="deleteModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:white; padding:24px; border-radius:12px; width:100%; max-width:350px; box-shadow:0 10px 25px rgba(0,0,0,0.15); text-align:center;">
+        <div style="width:50px; height:50px; border-radius:50%; background:#fef0f0; color:#e74c3c; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+            <i data-lucide="alert-triangle" style="width:24px; height:24px;"></i>
+        </div>
+        <h3 style="margin-top:0; margin-bottom:8px; font-size:16px; color:#1a1a1a;">Hapus Data Donasi?</h3>
+        <p style="font-size:13px; color:#666; margin-bottom:20px; line-height:1.5;">Data yang dihapus tidak dapat dikembalikan lagi. Yakin ingin melanjutkan?</p>
+        
+        <form method="POST">
+            <input type="hidden" name="action" value="delete">
+            <input type="hidden" name="donasi_id" id="modal_delete_donasi_id">
+            
+            <div style="display:flex; justify-content:center; gap:10px;">
+                <button type="button" onclick="closeDeleteModal()" style="padding:9px 16px; border-radius:8px; border:none; background:#f0f4f8; color:#555; font-weight:700; font-family:'Poppins',sans-serif; font-size:12px; cursor:pointer; flex:1;">Batal</button>
+                <button type="submit" style="padding:9px 16px; border-radius:8px; border:none; background:#e74c3c; color:white; font-weight:700; font-family:'Poppins',sans-serif; font-size:12px; cursor:pointer; flex:1;">Ya, Hapus</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
 lucide.createIcons();
 
-// Fungsi untuk membuka modal update
+// --- Logika Modal Update Status ---
 function openUpdateModal(id, currentStatus) {
     document.getElementById('modal_donasi_id').value = id;
     document.getElementById('modal_status').value = currentStatus;
     document.getElementById('updateModal').style.display = 'flex';
 }
 
-// Fungsi untuk menutup modal update
 function closeUpdateModal() {
     document.getElementById('updateModal').style.display = 'none';
 }
 
+// --- Logika Modal Hapus ---
+function openDeleteModal(id) {
+    document.getElementById('modal_delete_donasi_id').value = id;
+    document.getElementById('deleteModal').style.display = 'flex';
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+}
+
+// --- Export CSV ---
 function exportCSV() {
-    // Mengecualikan kolom Aksi (index ke-7) dari export CSV
     const rows = [['No','Nama Donatur','Email','Jumlah','Pesan','Status','Tanggal']];
     document.querySelectorAll('#donasiTable tbody tr').forEach((tr, i) => {
         const cells = tr.querySelectorAll('td');

@@ -26,9 +26,5 @@ $_SESSION['user_id'] = $user['id'];
 $_SESSION['user_name'] = $user['nama'];
 $_SESSION['user_role'] = $user['role'];
 
-<<<<<<< HEAD
 $redirect = $user['role'] === 'admin' ? 'admin/dashboard.php' : 'home.php';
-=======
-$redirect = $user['role'] === 'admin' ? '/admin/dashboard.php' : '/home.php';
->>>>>>> 81ab3df7aad3184a9998cd09e1b5ea0cf8d4ffa6
 jsonResponse(['success' => true, 'message' => 'Login berhasil', 'redirect' => $redirect, 'role' => $user['role']]);

@@ -35,19 +35,6 @@ function navLink($href, $icon, $label, $current) {
 
     <div class="sidebar-footer">
         <a href="../api/auth_logout.php" class="btn-logout">
-=======
-        <?= navLink('/admin/dashboard.php', 'layout-dashboard', 'Dashboard', $currentPage) ?>
-        <?= navLink('/admin/penerima.php', 'heart-handshake', 'Penerima Donasi', $currentPage) ?>
-        <?= navLink('/admin/pengguna.php', 'users', 'Kelola Pengguna', $currentPage) ?>
-        <?= navLink('/admin/laporan_donasi.php', 'bar-chart-2', 'Laporan Donasi', $currentPage) ?>
-
-        <div class="nav-section">Lainnya</div>
-        <?= navLink('/home.php', 'globe', 'Lihat Website', $currentPage) ?>
-    </nav>
-
-    <div class="sidebar-footer">
-        <a href="/api/auth_logout.php" class="btn-logout">
->>>>>>> 81ab3df7aad3184a9998cd09e1b5ea0cf8d4ffa6
             <i data-lucide="log-out" style="width:16px;height:16px;"></i> Keluar
         </a>
     </div>

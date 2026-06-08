@@ -219,11 +219,7 @@ document.getElementById('adminLoginForm').addEventListener('submit', async funct
     btn.innerHTML = '<div class="spinner"></div> Memverifikasi...';
 
     const fd = new FormData(this);
-<<<<<<< HEAD
     const res = await fetch('../api/admin_auth.php', { method: 'POST', body: fd });
-=======
-    const res  = await fetch('/api/admin_auth.php', { method: 'POST', body: fd });
->>>>>>> 81ab3df7aad3184a9998cd09e1b5ea0cf8d4ffa6
     const data = await res.json();
 
     if (data.success) {
