@@ -6,6 +6,31 @@ $admin = getAdminUser();
 
 $db = getDB();
 
+// --- HANDLE UPDATE & DELETE ACTIONS ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+    $action = $_POST['action'];
+    $donasiId = $_POST['donasi_id'] ?? null;
+
+    if ($action === 'delete' && $donasiId) {
+        // Fitur Delete: Menghapus record permanen pada tabel donasi
+        $stmt = $db->prepare("DELETE FROM donasi WHERE id = ?");
+        $stmt->execute([$donasiId]);
+        
+        // Refresh halaman dengan parameter GET yang sama
+        header("Location: " . $_SERVER['PHP_SELF'] . "?" . http_build_query($_GET));
+        exit;
+    } elseif ($action === 'update_status' && $donasiId) {
+        // Fitur Update: Mengubah status transaksi donasi
+        $newStatus = $_POST['status'] ?? 'pending';
+        $stmt = $db->prepare("UPDATE donasi SET status = ? WHERE id = ?");
+        $stmt->execute([$newStatus, $donasiId]);
+        
+        header("Location: " . $_SERVER['PHP_SELF'] . "?" . http_build_query($_GET));
+        exit;
+    }
+}
+// --------------------------------------
+
 $filter  = $_GET['status'] ?? 'all';
 $search  = trim($_GET['q'] ?? '');
 
@@ -82,6 +107,14 @@ try {
         .bar-fill  { height:100%;border-radius:20px;background:linear-gradient(90deg,#007bff,#00d2ff);transition:width 0.8s cubic-bezier(.34,1.56,.64,1); }
         .bar-val   { width:80px;text-align:right;font-weight:700;color:#1a1a1a;flex-shrink:0; }
         .summary-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px; }
+        
+        /* CSS Tambahan untuk Action Buttons */
+        .action-btn { padding:6px 10px; border-radius:6px; border:none; cursor:pointer; font-size:12px; font-weight:600; display:inline-flex; align-items:center; gap:4px; transition:0.2s; }
+        .btn-edit { background:#e8f4ff; color:#007bff; }
+        .btn-edit:hover { background:#d0e8ff; }
+        .btn-delete { background:#fef0f0; color:#e74c3c; }
+        .btn-delete:hover { background:#fad4d4; }
+        
         @media(max-width:900px){ .summary-grid{grid-template-columns:repeat(2,1fr);} }
         @media(max-width:500px){ .summary-grid{grid-template-columns:1fr 1fr;} }
     </style>
@@ -100,7 +133,6 @@ try {
             <i data-lucide="download" style="width:14px;height:14px;"></i> Export CSV
         </button>
     </div>
-
 
     <div class="summary-grid">
         <div class="stat-card">
@@ -137,7 +169,6 @@ try {
         </div>
     </div>
 
-
     <?php if (!empty($byMonth)): ?>
     <div class="table-card" style="margin-bottom:22px;">
         <div class="table-card-head">
@@ -160,7 +191,6 @@ try {
         </div>
     </div>
     <?php endif; ?>
-
 
     <div style="display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;align-items:center;">
         <form method="GET" style="display:flex;gap:8px;flex-wrap:wrap;flex:1;align-items:center;">
@@ -207,7 +237,7 @@ try {
                     <th>Pesan</th>
                     <th>Status</th>
                     <th>Tanggal</th>
-                </tr>
+                    <th>Aksi</th> </tr>
             </thead>
             <tbody>
             <?php foreach ($donasi as $i => $d):
@@ -237,12 +267,27 @@ try {
                 <td style="font-size:12px;color:#bbb;white-space:nowrap;">
                     <?= date('d M Y, H:i', strtotime($d['created_at'])) ?>
                 </td>
+                
+                <td>
+                    <div style="display:flex;gap:6px;">
+                        <button type="button" class="action-btn btn-edit" onclick="openUpdateModal(<?= $d['id'] ?>, '<?= htmlspecialchars($d['status']) ?>')" title="Update Status">
+                            <i data-lucide="edit-2" style="width:14px;height:14px;"></i>
+                        </button>
+                        <form method="POST" style="margin:0;" onsubmit="return confirm('Yakin ingin menghapus data donasi ini secara permanen?');">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="donasi_id" value="<?= $d['id'] ?>">
+                            <button type="submit" class="action-btn btn-delete" title="Hapus Data">
+                                <i data-lucide="trash-2" style="width:14px;height:14px;"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+                
             </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
         </div>
-
 
         <div style="margin-top:16px;padding:16px 20px;background:#f8fbff;border-radius:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;border:1px solid #f0f4f8;">
             <span style="font-size:13px;color:#888;">Total dari <?= count($donasi) ?> transaksi yang ditampilkan</span>
@@ -251,7 +296,6 @@ try {
         </div>
         <?php endif; ?>
     </div>
-
 
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
         <div>
@@ -350,10 +394,49 @@ try {
 
 </div>
 
+<div id="updateModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:white; padding:24px; border-radius:12px; width:100%; max-width:350px; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+        <h3 style="margin-top:0; margin-bottom:16px; font-size:16px; color:#1a1a1a; display:flex; align-items:center; gap:8px;">
+            <i data-lucide="edit" style="width:18px;height:18px;color:#007bff;"></i> Update Status Donasi
+        </h3>
+        <form method="POST">
+            <input type="hidden" name="action" value="update_status">
+            <input type="hidden" name="donasi_id" id="modal_donasi_id">
+            
+            <div style="margin-bottom:20px;">
+                <label style="display:block; font-size:12px; font-weight:700; color:#555; margin-bottom:8px;">Pilih Status Baru</label>
+                <select name="status" id="modal_status" style="width:100%; padding:10px 14px; border-radius:8px; border:1.5px solid #e9ecef; font-family:'Poppins',sans-serif; font-size:13px; outline:none;">
+                    <option value="pending">Pending</option>
+                    <option value="sukses">Sukses</option>
+                    <option value="gagal">Gagal</option>
+                </select>
+            </div>
+            
+            <div style="display:flex; justify-content:flex-end; gap:10px;">
+                <button type="button" onclick="closeUpdateModal()" style="padding:9px 16px; border-radius:8px; border:none; background:#f0f4f8; color:#555; font-weight:700; font-family:'Poppins',sans-serif; font-size:12px; cursor:pointer;">Batal</button>
+                <button type="submit" style="padding:9px 16px; border-radius:8px; border:none; background:#007bff; color:white; font-weight:700; font-family:'Poppins',sans-serif; font-size:12px; cursor:pointer;">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
 lucide.createIcons();
 
+// Fungsi untuk membuka modal update
+function openUpdateModal(id, currentStatus) {
+    document.getElementById('modal_donasi_id').value = id;
+    document.getElementById('modal_status').value = currentStatus;
+    document.getElementById('updateModal').style.display = 'flex';
+}
+
+// Fungsi untuk menutup modal update
+function closeUpdateModal() {
+    document.getElementById('updateModal').style.display = 'none';
+}
+
 function exportCSV() {
+    // Mengecualikan kolom Aksi (index ke-7) dari export CSV
     const rows = [['No','Nama Donatur','Email','Jumlah','Pesan','Status','Tanggal']];
     document.querySelectorAll('#donasiTable tbody tr').forEach((tr, i) => {
         const cells = tr.querySelectorAll('td');

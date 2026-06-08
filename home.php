@@ -14,7 +14,11 @@ $totalUsers = (int)$db->query("SELECT COUNT(*) FROM users WHERE role != 'admin'"
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MEDIXA - Prioritas Kesehatan Anda</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<<<<<<< HEAD
     <link rel="stylesheet" href="/style.css">
+=======
+    <link rel="stylesheet" href="style.css">
+>>>>>>> 81ab3df7aad3184a9998cd09e1b5ea0cf8d4ffa6
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
 

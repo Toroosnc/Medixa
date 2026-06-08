@@ -96,7 +96,11 @@ $recentPenerima = $db->query("SELECT nama,penyakit,status,created_at FROM peneri
         <div class="dash-card">
             <div class="dash-card-head">
                 <h3><i data-lucide="users" style="width:15px;height:15px;color:#007bff;"></i> Pengguna Terbaru</h3>
+<<<<<<< HEAD
                 <a href="pengguna.php" class="link-more">Lihat Semua →</a>
+=======
+                <a href="/admin/pengguna.php" class="link-more">Lihat Semua →</a>
+>>>>>>> 81ab3df7aad3184a9998cd09e1b5ea0cf8d4ffa6
             </div>
             <table class="mini-table">
                 <thead><tr><th>Nama</th><th>Status</th><th>Terdaftar</th></tr></thead>

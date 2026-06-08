@@ -82,7 +82,11 @@ if (isLoggedIn()) {
 
             const formData = new FormData(this);
             try {
+<<<<<<< HEAD
                 const res = await fetch('api/auth_login.php', { method: 'POST', body: formData });
+=======
+                const res = await fetch('/api/auth_login.php', { method: 'POST', body: formData });
+>>>>>>> 81ab3df7aad3184a9998cd09e1b5ea0cf8d4ffa6
                 const data = await res.json();
                 if (data.success) {
                     showAlert(data.message, true);

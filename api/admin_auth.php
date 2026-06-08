@@ -34,4 +34,8 @@ $_SESSION['user_id']   = $user['id'];
 $_SESSION['user_name'] = $user['nama'];
 $_SESSION['user_role'] = 'admin';
 
+<<<<<<< HEAD
 jsonResponse(['success' => true, 'message' => 'Login berhasil', 'redirect' => '/Medixa/admin/dashboard.php']);
+=======
+jsonResponse(['success' => true, 'message' => 'Login berhasil', 'redirect' => '/admin/dashboard.php']);
+>>>>>>> 81ab3df7aad3184a9998cd09e1b5ea0cf8d4ffa6
