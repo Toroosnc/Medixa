@@ -12,7 +12,7 @@ $user = getCurrentUser();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Daftar Penerima Donasi - MEDIXA</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="../style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         .reg-page { max-width: 720px; margin: 50px auto; padding: 0 20px 80px; }

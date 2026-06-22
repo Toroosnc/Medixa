@@ -13,8 +13,8 @@ $penerima = $db->query("SELECT * FROM penerima_donasi WHERE status = 'approved' 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donasi - MEDIXA</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/fitur/style_fitur.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style_fitur.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }

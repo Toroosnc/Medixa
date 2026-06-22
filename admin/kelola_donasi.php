@@ -85,7 +85,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laporan Donasi - Admin MEDIXA</title>
+    <title>Kelola Donasi - Admin MEDIXA</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <?php include __DIR__ . '/admin_style.php'; ?>
@@ -124,7 +124,7 @@ try {
 <div class="admin-content">
     <div class="admin-topbar">
         <div>
-            <h1 class="page-title">Laporan Donasi</h1>
+            <h1 class="page-title">Kelola Donasi</h1>
             <p class="page-sub">Rincian seluruh transaksi donasi masuk</p>
         </div>
         <button class="export-btn" onclick="exportCSV()">

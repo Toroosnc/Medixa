@@ -26,7 +26,7 @@ function navLink($href, $icon, $label, $current) {
         <?= navLink('dashboard.php', 'layout-dashboard', 'Dashboard', $currentPage) ?>
         <?= navLink('penerima.php', 'heart-handshake', 'Penerima Donasi', $currentPage) ?>
         <?= navLink('pengguna.php', 'users', 'Kelola Pengguna', $currentPage) ?>
-        <?= navLink('laporan_donasi.php', 'bar-chart-2', 'Laporan Donasi', $currentPage) ?>
+        <?= navLink('kelola_donasi.php', 'bar-chart-2', 'Kelola Donasi', $currentPage) ?>
 
         <div class="nav-section">Lainnya</div>
         <?= navLink('../home.php', 'globe', 'Lihat Website', $currentPage) ?>
