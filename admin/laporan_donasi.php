@@ -6,13 +6,12 @@ $admin = getAdminUser();
 
 $db = getDB();
 
-// --- HANDLE UPDATE & DELETE ACTIONS ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $action = $_POST['action'];
     $donasiId = $_POST['donasi_id'] ?? null;
 
     if ($action === 'delete' && $donasiId) {
-        // Fitur Delete: Menghapus record permanen pada tabel donasi
+        //Delete: Menghapus record permanen pada tabel donasi
         $stmt = $db->prepare("DELETE FROM donasi WHERE id = ?");
         $stmt->execute([$donasiId]);
         
@@ -20,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         header("Location: " . $_SERVER['PHP_SELF'] . "?" . http_build_query($_GET));
         exit;
     } elseif ($action === 'update_status' && $donasiId) {
-        // Fitur Update: Mengubah status transaksi donasi
+        //Update: Mengubah status transaksi donasi
         $newStatus = $_POST['status'] ?? 'pending';
         $stmt = $db->prepare("UPDATE donasi SET status = ? WHERE id = ?");
         $stmt->execute([$newStatus, $donasiId]);
@@ -29,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         exit;
     }
 }
-// --------------------------------------
 
 $filter  = $_GET['status'] ?? 'all';
 $search  = trim($_GET['q'] ?? '');
@@ -404,8 +402,7 @@ try {
                 <label style="display:block; font-size:12px; font-weight:700; color:#555; margin-bottom:8px;">Pilih Status Baru</label>
                 <select name="status" id="modal_status" style="width:100%; padding:10px 14px; border-radius:8px; border:1.5px solid #e9ecef; font-family:'Poppins',sans-serif; font-size:13px; outline:none;">
                     <option value="pending">Pending</option>
-                    <option value="sukses">Sukses</option>
-                    <option value="gagal">Gagal</option>
+                    <option value="sukses">Selesai</option>
                 </select>
             </div>
             
@@ -440,7 +437,7 @@ try {
 <script>
 lucide.createIcons();
 
-// --- Logika Modal Update Status ---
+// Update Status
 function openUpdateModal(id, currentStatus) {
     document.getElementById('modal_donasi_id').value = id;
     document.getElementById('modal_status').value = currentStatus;
@@ -451,7 +448,7 @@ function closeUpdateModal() {
     document.getElementById('updateModal').style.display = 'none';
 }
 
-// --- Logika Modal Hapus ---
+// Hapus
 function openDeleteModal(id) {
     document.getElementById('modal_delete_donasi_id').value = id;
     document.getElementById('deleteModal').style.display = 'flex';

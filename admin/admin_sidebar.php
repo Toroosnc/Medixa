@@ -23,7 +23,6 @@ function navLink($href, $icon, $label, $current) {
 
     <nav class="sidebar-nav">
         <div class="nav-section">Utama</div>
-<<<<<<< HEAD
         <?= navLink('dashboard.php', 'layout-dashboard', 'Dashboard', $currentPage) ?>
         <?= navLink('penerima.php', 'heart-handshake', 'Penerima Donasi', $currentPage) ?>
         <?= navLink('pengguna.php', 'users', 'Kelola Pengguna', $currentPage) ?>
