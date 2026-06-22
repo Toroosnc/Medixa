@@ -14,11 +14,7 @@ $totalUsers = (int)$db->query("SELECT COUNT(*) FROM users WHERE role != 'admin'"
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MEDIXA - Prioritas Kesehatan Anda</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<<<<<<< HEAD
-    <link rel="stylesheet" href="/style.css">
-=======
     <link rel="stylesheet" href="style.css">
->>>>>>> 81ab3df7aad3184a9998cd09e1b5ea0cf8d4ffa6
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
 
@@ -182,10 +178,10 @@ $totalUsers = (int)$db->query("SELECT COUNT(*) FROM users WHERE role != 'admin'"
         <div class="hero-btns">
             <?php if ($isLogged): ?>
                 <a href="/fitur/kalkulatorBMI.php" class="btn-main btn-blue">Mulai Sekarang</a>
-                <a href="/profile.php" class="btn-main btn-outline">Profil Saya</a>
+                <a href="profile.php" class="btn-main btn-outline">Profil Saya</a>
             <?php else: ?>
-                <a href="/register.php" class="btn-main btn-blue">Mulai Sekarang</a>
-                <a href="/login.php" class="btn-main btn-outline">Masuk</a>
+                <a href="register.php" class="btn-main btn-blue">Mulai Sekarang</a>
+                <a href="login.php" class="btn-main btn-outline">Masuk</a>
             <?php endif; ?>
         </div>
     </header>

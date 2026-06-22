@@ -54,7 +54,7 @@ $basePath = $basePath ?? '';
                     </a>
                     <?php endif; ?>
                     <div style="border-top:1px solid #f5f5f5;margin-top:4px;"></div>
-                    <a href="<?= $basePath ?>/api/auth_logout.php" class="nav-drop-item" style="color:#e74c3c !important;">
+                    <a href="<?= $basePath ?>../api/auth_logout.php" class="nav-drop-item" style="color:#e74c3c !important;">
                         <i data-lucide="log-out" style="width:15px;height:15px;color:#e74c3c;"></i> Keluar
                     </a>
                 </div>

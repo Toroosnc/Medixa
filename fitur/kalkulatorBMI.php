@@ -11,8 +11,8 @@ $isLogged = isLoggedIn();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kalkulator BMI - MEDIXA</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="/fitur/style_fitur.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style_fitur.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
@@ -43,7 +43,7 @@ $isLogged = isLoggedIn();
                     <?php if ($isLogged): ?>
                     <p id="save-status" style="text-align:center;font-size:12px;color:#888;margin-top:10px;display:none;"></p>
                     <?php else: ?>
-                    <p style="text-align:center;font-size:12px;color:#aaa;margin-top:10px;"><a href="/login.php" style="color:#007bff;">Login</a> untuk menyimpan riwayat BMI</p>
+                    <p style="text-align:center;font-size:12px;color:#aaa;margin-top:10px;"><a href="../login.php" style="color:#007bff;">Login</a> untuk menyimpan riwayat BMI</p>
                     <?php endif; ?>
                 </form>
             </div>
