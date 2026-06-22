@@ -6,25 +6,25 @@ $isLogged = isLoggedIn();
 $basePath = $basePath ?? '';
 ?>
 <nav class="navbar">
-    <a href="<?= $basePath ?>/home.php" class="logo">
+    <a href="<?= BASE_PATH ?>/home.php" class="logo">
         <i data-lucide="shield-plus"></i> MEDIXA
     </a>
 
 
     <div class="nav-links" id="navLinks">
-        <a href="<?= $basePath ?>/home.php" <?= basename($_SERVER['PHP_SELF']) === '../home.php' ? 'class="active"' : '' ?>>
+        <a href="<?= BASE_PATH ?>/home.php" <?= basename($_SERVER['PHP_SELF']) === 'home.php' ? 'class="active"' : '' ?>>
             <i data-lucide="home"></i> Beranda
         </a>
-        <a href="<?= $basePath ?>/fitur/kalkulatorBMI.php" <?= basename($_SERVER['PHP_SELF']) === 'kalkulatorBMI.php' ? 'class="active"' : '' ?>>
+        <a href="<?= BASE_PATH ?>/fitur/kalkulatorBMI.php" <?= basename($_SERVER['PHP_SELF']) === 'kalkulatorBMI.php' ? 'class="active"' : '' ?>>
             <i data-lucide="calculator"></i> Kalkulator BMI
         </a>
-        <a href="<?= $basePath ?>/fitur/pintarObat.php" <?= basename($_SERVER['PHP_SELF']) === 'pintarObat.php' ? 'class="active"' : '' ?>>
+        <a href="<?= BASE_PATH ?>/fitur/pintarObat.php" <?= basename($_SERVER['PHP_SELF']) === 'pintarObat.php' ? 'class="active"' : '' ?>>
             <i data-lucide="pill"></i> Pintar Obat
         </a>
-        <a href="<?= $basePath ?>/fitur/rumahSakit.php" <?= basename($_SERVER['PHP_SELF']) === 'rumahSakit.php' ? 'class="active"' : '' ?>>
+        <a href="<?= BASE_PATH ?>/fitur/rumahSakit.php" <?= basename($_SERVER['PHP_SELF']) === 'rumahSakit.php' ? 'class="active"' : '' ?>>
             <i data-lucide="hospital"></i> Rumah Sakit
         </a>
-        <a href="<?= $basePath ?>/fitur/donasi.php" <?= basename($_SERVER['PHP_SELF']) === 'donasi.php' ? 'class="active"' : '' ?>>
+        <a href="<?= BASE_PATH ?>/fitur/donasi.php" <?= basename($_SERVER['PHP_SELF']) === 'donasi.php' ? 'class="active"' : '' ?>>
             <i data-lucide="heart"></i> Donasi
         </a>
 
@@ -42,25 +42,25 @@ $basePath = $basePath ?? '';
                         <div style="font-weight:700;font-size:14px;color:#1a1a1a;"><?= htmlspecialchars($user['nama']) ?></div>
                         <div style="font-size:12px;color:#aaa;margin-top:2px;"><?= htmlspecialchars($user['email']) ?></div>
                     </div>
-                    <a href="<?= $basePath ?>/profile.php" class="nav-drop-item">
+                    <a href="<?= BASE_PATH ?>/profile.php" class="nav-drop-item">
                         <i data-lucide="user-circle" style="width:15px;height:15px;color:#007bff;"></i> Edit Profil
                     </a>
-                    <a href="<?= $basePath ?>/fitur/registerPenerimaDonasi.php" class="nav-drop-item">
+                    <a href="<?= BASE_PATH ?>/fitur/registerPenerimaDonasi.php" class="nav-drop-item">
                         <i data-lucide="hand-heart" style="width:15px;height:15px;color:#a55eea;"></i> Daftar Penerima Donasi
                     </a>
                     <?php if ($user['role'] === 'admin'): ?>
-                    <a href="<?= $basePath ?>/admin/dashboard.php" class="nav-drop-item">
+                    <a href="<?= BASE_PATH ?>/admin/dashboard.php" class="nav-drop-item">
                         <i data-lucide="layout-dashboard" style="width:15px;height:15px;color:#27ae60;"></i> Dashboard Admin
                     </a>
                     <?php endif; ?>
                     <div style="border-top:1px solid #f5f5f5;margin-top:4px;"></div>
-                    <a href="<?= $basePath ?>../api/auth_logout.php" class="nav-drop-item" style="color:#e74c3c !important;">
+                    <a href="<?= BASE_PATH ?>/api/auth_logout.php" class="nav-drop-item" style="color:#e74c3c !important;">
                         <i data-lucide="log-out" style="width:15px;height:15px;color:#e74c3c;"></i> Keluar
                     </a>
                 </div>
             </div>
         <?php else: ?>
-            <a href="<?= $basePath ?>/login.php" class="btn-login-nav"><i data-lucide="log-in"></i> Login</a>
+            <a href="<?= BASE_PATH ?>/login.php" class="btn-login-nav"><i data-lucide="log-in"></i> Login</a>
         <?php endif; ?>
     </div>
 
@@ -80,11 +80,11 @@ $basePath = $basePath ?? '';
         </button>
     </div>
     <div class="drawer-links">
-        <a href="<?= $basePath ?>/home.php" class="drawer-link"><i data-lucide="home"></i> Beranda</a>
-        <a href="<?= $basePath ?>/fitur/kalkulatorBMI.php" class="drawer-link"><i data-lucide="calculator"></i> Kalkulator BMI</a>
-        <a href="<?= $basePath ?>/fitur/pintarObat.php" class="drawer-link"><i data-lucide="pill"></i> Pintar Obat</a>
-        <a href="<?= $basePath ?>/fitur/rumahSakit.php" class="drawer-link"><i data-lucide="hospital"></i> Rumah Sakit</a>
-        <a href="<?= $basePath ?>/fitur/donasi.php" class="drawer-link"><i data-lucide="heart"></i> Donasi</a>
+        <a href="<?= BASE_PATH ?>/home.php" class="drawer-link"><i data-lucide="home"></i> Beranda</a>
+        <a href="<?= BASE_PATH ?>/fitur/kalkulatorBMI.php" class="drawer-link"><i data-lucide="calculator"></i> Kalkulator BMI</a>
+        <a href="<?= BASE_PATH ?>/fitur/pintarObat.php" class="drawer-link"><i data-lucide="pill"></i> Pintar Obat</a>
+        <a href="<?= BASE_PATH ?>/fitur/rumahSakit.php" class="drawer-link"><i data-lucide="hospital"></i> Rumah Sakit</a>
+        <a href="<?= BASE_PATH ?>/fitur/donasi.php" class="drawer-link"><i data-lucide="heart"></i> Donasi</a>
         <div class="drawer-divider"></div>
         <?php if ($isLogged): ?>
             <div class="drawer-user">
@@ -94,14 +94,14 @@ $basePath = $basePath ?? '';
                     <div style="font-size:11px;color:#aaa;"><?= htmlspecialchars($user['email']) ?></div>
                 </div>
             </div>
-            <a href="<?= $basePath ?>/profile.php" class="drawer-link"><i data-lucide="user-circle"></i> Edit Profil</a>
-            <a href="<?= $basePath ?>/fitur/registerPenerimaDonasi.php" class="drawer-link"><i data-lucide="hand-heart"></i> Daftar Penerima Donasi</a>
+            <a href="<?= BASE_PATH ?>/profile.php" class="drawer-link"><i data-lucide="user-circle"></i> Edit Profil</a>
+            <a href="<?= BASE_PATH ?>/fitur/registerPenerimaDonasi.php" class="drawer-link"><i data-lucide="hand-heart"></i> Daftar Penerima Donasi</a>
             <?php if ($user['role'] === 'admin'): ?>
-            <a href="<?= $basePath ?>/admin/dashboard.php" class="drawer-link"><i data-lucide="layout-dashboard"></i> Dashboard Admin</a>
+            <a href="<?= BASE_PATH ?>/admin/dashboard.php" class="drawer-link"><i data-lucide="layout-dashboard"></i> Dashboard Admin</a>
             <?php endif; ?>
-            <a href="<?= $basePath ?>/api/auth_logout.php" class="drawer-link" style="color:#e74c3c;"><i data-lucide="log-out"></i> Keluar</a>
+            <a href="<?= BASE_PATH ?>/api/auth_logout.php" class="drawer-link" style="color:#e74c3c;"><i data-lucide="log-out"></i> Keluar</a>
         <?php else: ?>
-            <a href="<?= $basePath ?>/login.php" class="drawer-link-cta">
+            <a href="<?= BASE_PATH ?>/login.php" class="drawer-link-cta">
                 <i data-lucide="log-in"></i> Login / Daftar
             </a>
         <?php endif; ?>

@@ -177,11 +177,11 @@ $totalUsers = (int)$db->query("SELECT COUNT(*) FROM users WHERE role != 'admin'"
         <p>Platform kesehatan terpadu untuk membantu Anda mengelola kesehatan dengan lebih baik melalui fitur-fitur modern kami.</p>
         <div class="hero-btns">
             <?php if ($isLogged): ?>
-                <a href="/fitur/kalkulatorBMI.php" class="btn-main btn-blue">Mulai Sekarang</a>
-                <a href="profile.php" class="btn-main btn-outline">Profil Saya</a>
+                <a href="<?= BASE_PATH ?>/fitur/kalkulatorBMI.php" class="btn-main btn-blue">Mulai Sekarang</a>
+                <a href="<?= BASE_PATH ?>/profile.php" class="btn-main btn-outline">Profil Saya</a>
             <?php else: ?>
-                <a href="register.php" class="btn-main btn-blue">Mulai Sekarang</a>
-                <a href="login.php" class="btn-main btn-outline">Masuk</a>
+                <a href="<?= BASE_PATH ?>/register.php" class="btn-main btn-blue">Mulai Sekarang</a>
+                <a href="<?= BASE_PATH ?>/login.php" class="btn-main btn-outline">Masuk</a>
             <?php endif; ?>
         </div>
     </header>
@@ -191,22 +191,22 @@ $totalUsers = (int)$db->query("SELECT COUNT(*) FROM users WHERE role != 'admin'"
         <h2 class="section-title">Fitur Unggulan</h2>
         <div class="features-container-skew">
             <div class="features-grid">
-                <a href="/fitur/kalkulatorBMI.php" class="feature-card" style="text-decoration:none;color:inherit;">
+                <a href="<?= BASE_PATH ?>/fitur/kalkulatorBMI.php" class="feature-card" style="text-decoration:none;color:inherit;">
                     <div class="icon-box" style="background:#007bff;"><i data-lucide="calculator"></i></div>
                     <h3>Kalkulator BMI</h3>
                     <p>Hitung Indeks Massa Tubuh Anda dengan mudah dan cepat melalui sistem kami.</p>
                 </a>
-                <a href="/fitur/pintarObat.php" class="feature-card" style="text-decoration:none;color:inherit;">
+                <a href="<?= BASE_PATH ?>/fitur/pintarObat.php" class="feature-card" style="text-decoration:none;color:inherit;">
                     <div class="icon-box" style="background:#20e2d7;"><i data-lucide="pill"></i></div>
                     <h3>Pintar Obat</h3>
                     <p>Cari informasi obat dan dosis yang tepat sesuai dengan kebutuhan medis Anda.</p>
                 </a>
-                <a href="/fitur/rumahSakit.php" class="feature-card" style="text-decoration:none;color:inherit;">
+                <a href="<?= BASE_PATH ?>/fitur/rumahSakit.php" class="feature-card" style="text-decoration:none;color:inherit;">
                     <div class="icon-box" style="background:#ff4757;"><i data-lucide="map-pin"></i></div>
                     <h3>Rumah Sakit</h3>
                     <p>Temukan rumah sakit terdekat dari lokasi Anda saat ini secara real-time.</p>
                 </a>
-                <a href="/fitur/donasi.php" class="feature-card" style="text-decoration:none;color:inherit;">
+                <a href="<?= BASE_PATH ?>/fitur/donasi.php" class="feature-card" style="text-decoration:none;color:inherit;">
                     <div class="icon-box" style="background:#a55eea;"><i data-lucide="heart"></i></div>
                     <h3>Donasi</h3>
                     <p>Bantu pasien yang membutuhkan biaya pengobatan dengan cara berdonasi.</p>
@@ -242,7 +242,7 @@ $totalUsers = (int)$db->query("SELECT COUNT(*) FROM users WHERE role != 'admin'"
                 <h2><i data-lucide="pill" style="display:inline;vertical-align:middle;color:#20e2d7;width:28px;height:28px;margin-right:8px;"></i>Pintar Obat</h2>
                 <p>Kenali obat-obatan umum: kegunaan, dosis, dan efek sampingnya</p>
             </div>
-            <a href="/fitur/pintarObat.php" class="btn-see-all">
+            <a href="<?= BASE_PATH ?>/fitur/pintarObat.php" class="btn-see-all">
                 <i data-lucide="arrow-right" style="width:16px;height:16px;"></i> Lihat Semua Obat
             </a>
         </div>
@@ -278,11 +278,11 @@ $totalUsers = (int)$db->query("SELECT COUNT(*) FROM users WHERE role != 'admin'"
         <p>Daftar sekarang dan dapatkan akses penuh ke semua fitur premium kami secara gratis!</p>
         <div class="cta-btns">
             <?php if ($isLogged): ?>
-                <a href="/fitur/kalkulatorBMI.php" class="btn-main btn-white">Cek BMI Sekarang</a>
-                <a href="/fitur/rumahSakit.php" class="btn-main btn-ghost">Cari Rumah Sakit</a>
+                <a href="<?= BASE_PATH ?>/fitur/kalkulatorBMI.php" class="btn-main btn-white">Cek BMI Sekarang</a>
+                <a href="<?= BASE_PATH ?>/fitur/rumahSakit.php" class="btn-main btn-ghost">Cari Rumah Sakit</a>
             <?php else: ?>
-                <a href="/register.php" class="btn-main btn-white">Daftar Sekarang</a>
-                <a href="/login.php" class="btn-main btn-ghost">Sudah Punya Akun</a>
+                <a href="<?= BASE_PATH ?>/register.php" class="btn-main btn-white">Daftar Sekarang</a>
+                <a href="<?= BASE_PATH ?>/login.php" class="btn-main btn-ghost">Sudah Punya Akun</a>
             <?php endif; ?>
         </div>
     </div>

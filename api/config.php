@@ -1,5 +1,6 @@
 <?php
 define('DB_PATH', __DIR__ . '/../data/medixa.db');
+define('BASE_PATH', '/Medixa');
 
 function getDB() {
     static $db = null;

@@ -2,7 +2,7 @@
 require_once __DIR__ . '/api/config.php';
 sessionStart();
 if (isLoggedIn()) {
-    header('Location: ../home.php');
+    header('Location: /home.php');
     exit;
 }
 ?>
