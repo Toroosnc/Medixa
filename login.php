@@ -82,7 +82,7 @@ if (isLoggedIn()) {
 
             const formData = new FormData(this);
             try {
-                const res = await fetch('/api/auth_login.php', { method: 'POST', body: formData });
+                const res = await fetch('api/auth_login.php', { method: 'POST', body: formData });
                 const data = await res.json();
                 if (data.success) {
                     showAlert(data.message, true);

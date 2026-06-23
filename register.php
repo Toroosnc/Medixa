@@ -103,11 +103,11 @@ if (isLoggedIn()) {
 
             const formData = new FormData(this);
             try {
-                const res = await fetch('/api/auth_register.php', { method: 'POST', body: formData });
+                const res = await fetch('<?= BASE_PATH ?>/api/auth_register.php', { method: 'POST', body: formData });
                 const data = await res.json();
                 if (data.success) {
                     showAlert(data.message, true);
-                    setTimeout(() => window.location.href = data.redirect || '/home.php', 1000);
+                    setTimeout(() => window.location.href = data.redirect || '<?= BASE_PATH ?>/home.php', 1000);
                 } else {
                     showAlert(data.message, false);
                     btn.textContent = 'Daftar';
