@@ -1,17 +1,26 @@
 <?php
-define('DB_PATH', __DIR__ . '/../data/medixa.db');
+define('DB_HOST', 'localhost');
+define('DB_NAME', 'medixa_db'); 
+define('DB_USER', 'root');
+define('DB_PASS', '');          
+
 define('BASE_PATH', '/Medixa');
 
 function getDB() {
     static $db = null;
+
     if ($db === null) {
-        $dir = dirname(DB_PATH);
-        if (!is_dir($dir)) mkdir($dir, 0755, true);
-        $db = new PDO('sqlite:' . DB_PATH);
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $db->exec("PRAGMA journal_mode=WAL");
-        initDB($db);
+        try {
+            $dsn = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";charset=utf8mb4";
+            
+            $db = new PDO($dsn, DB_USER, DB_PASS);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+        } catch (PDOException $e) {
+            die("Koneksi MySQL Gagal: " . $e->getMessage());
+        }
     }
+
     return $db;
 }
 

@@ -5,6 +5,7 @@ sessionStart();
 
 $db = getDB();
 $penerima = $db->query("SELECT * FROM penerima_donasi WHERE status = 'approved' ORDER BY created_at DESC")->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
