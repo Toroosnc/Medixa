@@ -52,11 +52,11 @@ $donasi = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $totalNominal  = $db->query("SELECT COALESCE(SUM(jumlah),0) FROM donasi")->fetchColumn();
 $totalCount    = $db->query("SELECT COUNT(*) FROM donasi")->fetchColumn();
-$bulanIni      = $db->query("SELECT COALESCE(SUM(jumlah),0) FROM donasi WHERE strftime('%Y-%m', created_at) = strftime('%Y-%m','now')")->fetchColumn();
+$bulanIni      = $db->query("SELECT COALESCE(SUM(jumlah),0) FROM donasi WHERE DATE_FORMAT(created_at, '%Y-%m') = DATE_FORMAT(CURDATE(), '%Y-%m')")->fetchColumn();
 $rerata        = $totalCount > 0 ? $totalNominal / $totalCount : 0;
 
 $byMonth = $db->query("
-    SELECT strftime('%Y-%m', created_at) as bln,
+    SELECT DATE_FORMAT(created_at, '%Y-%m') as bln,
            COUNT(*) as cnt,
            SUM(jumlah) as total
     FROM donasi
