@@ -11,15 +11,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
     $donasiId = $_POST['donasi_id'] ?? null;
 
     if ($action === 'delete' && $donasiId) {
-        //Delete: Menghapus record permanen pada tabel donasi
+        //Menghapus record permanen pada tabel donasi
         $stmt = $db->prepare("DELETE FROM donasi WHERE id = ?");
         $stmt->execute([$donasiId]);
         
-        // Refresh halaman dengan parameter GET yang sama
+        //halaman dengan parameter GET yang sama
         header("Location: " . $_SERVER['PHP_SELF'] . "?" . http_build_query($_GET));
         exit;
     } elseif ($action === 'update_status' && $donasiId) {
-        //Update: Mengubah status transaksi donasi
+        //Mengubah status transaksi donasi
         $newStatus = $_POST['status'] ?? 'pending';
         $stmt = $db->prepare("UPDATE donasi SET status = ? WHERE id = ?");
         $stmt->execute([$newStatus, $donasiId]);

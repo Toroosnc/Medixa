@@ -44,4 +44,4 @@ $_SESSION['user_id'] = $userId;
 $_SESSION['user_name'] = $nama;
 $_SESSION['user_role'] = $role;
 
-jsonResponse(['success' => true, 'message' => 'Registrasi berhasil! Selamat datang di MEDIXA.', 'redirect' => '<?= BASE_PATH ?>/home.php']);
+jsonResponse(['success' => true, 'message' => 'Registrasi berhasil! Selamat datang di MEDIXA.', 'redirect' => BASE_PATH . '/home.php']);

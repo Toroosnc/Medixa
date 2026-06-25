@@ -2,7 +2,7 @@
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'medixa_db'); 
 define('DB_USER', 'root');
-define('DB_PASS', '');          
+define('DB_PASS', 'root');          
 
 define('BASE_PATH', '/Medixa');
 
@@ -25,77 +25,81 @@ function getDB() {
 }
 
 function initDB($db) {
-    $db->exec("
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nama TEXT NOT NULL,
-            email TEXT UNIQUE NOT NULL,
-            phone TEXT,
-            password TEXT NOT NULL,
-            role TEXT DEFAULT 'pengguna',
-            aktif INTEGER DEFAULT 1,
+    $statements = [
+        "CREATE TABLE IF NOT EXISTS users (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nama VARCHAR(255) NOT NULL,
+            email VARCHAR(255) UNIQUE NOT NULL,
+            phone VARCHAR(50),
+            password VARCHAR(255) NOT NULL,
+            role VARCHAR(20) DEFAULT 'pengguna',
+            aktif TINYINT(1) DEFAULT 1,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        );
+        ) ENGINE=InnoDB",
 
-        CREATE TABLE IF NOT EXISTS bmi_history (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
+        "CREATE TABLE IF NOT EXISTS bmi_history (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
             berat REAL,
             tinggi REAL,
             bmi REAL,
-            kategori TEXT,
+            kategori VARCHAR(50),
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(user_id) REFERENCES users(id)
-        );
+        ) ENGINE=InnoDB",
 
-        CREATE TABLE IF NOT EXISTS donasi (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nama_donatur TEXT,
-            email_donatur TEXT,
+        "CREATE TABLE IF NOT EXISTS donasi (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            nama_donatur VARCHAR(255),
+            email_donatur VARCHAR(255),
             jumlah REAL,
             pesan TEXT,
-            status TEXT DEFAULT 'pending',
+            status VARCHAR(20) DEFAULT 'pending',
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        );
+        ) ENGINE=InnoDB",
 
-        CREATE TABLE IF NOT EXISTS penerima_donasi (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER,
-            nama TEXT,
-            penyakit TEXT,
+        "CREATE TABLE IF NOT EXISTS penerima_donasi (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT,
+            nama VARCHAR(255),
+            penyakit VARCHAR(255),
             deskripsi TEXT,
             target REAL DEFAULT 0,
             terkumpul REAL DEFAULT 0,
-            foto TEXT,
-            status TEXT DEFAULT 'pending',
+            foto VARCHAR(255),
+            status VARCHAR(20) DEFAULT 'pending',
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(user_id) REFERENCES users(id)
-        );
+        ) ENGINE=InnoDB",
 
-        CREATE TABLE IF NOT EXISTS obat_history (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_id INTEGER NOT NULL,
-            nama_obat TEXT NOT NULL,
-            kategori TEXT,
+        "CREATE TABLE IF NOT EXISTS obat_history (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            user_id INT NOT NULL,
+            nama_obat VARCHAR(255) NOT NULL,
+            kategori VARCHAR(100),
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(user_id) REFERENCES users(id)
-        );
+        ) ENGINE=InnoDB",
 
-        CREATE TABLE IF NOT EXISTS email_log (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            to_email TEXT NOT NULL,
-            to_name TEXT,
-            subject TEXT,
-            type TEXT DEFAULT 'donasi',
-            status TEXT DEFAULT 'sent',
+        "CREATE TABLE IF NOT EXISTS email_log (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            to_email VARCHAR(255) NOT NULL,
+            to_name VARCHAR(255),
+            subject VARCHAR(255),
+            type VARCHAR(50) DEFAULT 'donasi',
+            status VARCHAR(20) DEFAULT 'sent',
             error_msg TEXT,
-            donasi_id INTEGER,
+            donasi_id INT,
             created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        );
-    ");
+        ) ENGINE=InnoDB",
+    ];
+
+    foreach ($statements as $sql) {
+        $db->exec($sql);
+    }
 
     // Add wallpaper column if not exists
-    try { $db->exec("ALTER TABLE users ADD COLUMN wallpaper TEXT DEFAULT 'gradient-1'"); } catch(Exception $e) {}
+    try { $db->exec("ALTER TABLE users ADD COLUMN wallpaper VARCHAR(50) DEFAULT 'gradient-1'"); } catch(Exception $e) {}
 
     // Seed admin accounts
     $admins = [
