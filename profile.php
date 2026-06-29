@@ -326,7 +326,7 @@ $obatRiwayat = $obatHistory->fetchAll(PDO::FETCH_ASSOC);
                     elseif ($diff < 86400) $timeStr = floor($diff/3600) . ' jam lalu';
                     else $timeStr = date('d M Y', strtotime($r['created_at']));
                 ?>
-                <a href="/fitur/pintarObat.php" class="oh-item">
+                <a href="<?= BASE_PATH ?>/fitur/pintarObat.php" class="oh-item">
                     <div class="oh-icon">
                         <i data-lucide="pill" style="color:#20e2d7;width:16px;height:16px;"></i>
                     </div>
@@ -342,7 +342,7 @@ $obatRiwayat = $obatHistory->fetchAll(PDO::FETCH_ASSOC);
             <div class="empty-state">
                 <i data-lucide="search" style="width:40px;height:40px;opacity:0.18;"></i>
                 <p>Belum ada riwayat pencarian obat.<br>
-                <a href="/fitur/pintarObat.php" style="color:#20e2d7;font-weight:700;text-decoration:none;">Buka Pintar Obat →</a></p>
+                <a href="<?= BASE_PATH ?>/fitur/pintarObat.php" style="color:#20e2d7;font-weight:700;text-decoration:none;">Buka Pintar Obat →</a></p>
             </div>
             <?php endif; ?>
         </div>
@@ -421,20 +421,30 @@ async function saveWp() {
     btn.textContent = 'Menyimpan...';
     btn.disabled = true;
 
-    const fd = new FormData();
-    fd.append('wallpaper', pickedWp);
-    const res  = await fetch('/api/profile_wallpaper.php', { method:'POST', body:fd });
-    const data = await res.json();
+    try {
+        const fd = new FormData();
+        fd.append('wallpaper', pickedWp);
+        const res  = await fetch('api/profile_wallpaper.php', { method:'POST', body:fd });
+        const data = await res.json();
 
-    if (data.success) {
-        closeWpPicker();
-    } else {
+        if (data.success) {
+            closeWpPicker();
+        } else {
+            const msg = document.getElementById('wp-msg');
+            msg.style.display = 'block';
+            msg.textContent = data.message;
+            msg.style.background = '#fef0f0';
+            msg.style.color = '#e74c3c';
+        }
+    } catch (err) {
+        console.error('Gagal simpan wallpaper:', err);
         const msg = document.getElementById('wp-msg');
         msg.style.display = 'block';
-        msg.textContent = data.message;
+        msg.textContent = 'Terjadi kesalahan, coba lagi';
         msg.style.background = '#fef0f0';
         msg.style.color = '#e74c3c';
     }
+
     btn.textContent = 'Terapkan';
     btn.disabled = false;
 }
@@ -446,7 +456,7 @@ document.getElementById('profileForm').addEventListener('submit', async function
     btn.innerHTML = '<div style="width:15px;height:15px;border:2px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;display:inline-block;"></div> Menyimpan...';
     btn.disabled = true;
 
-    const res  = await fetch('/api/profile_update.php', { method:'POST', body:new FormData(this) });
+    const res  = await fetch('api/profile_update.php', { method:'POST', body:new FormData(this) });
     const data = await res.json();
 
     const al = document.getElementById('profile-alert');

@@ -302,7 +302,7 @@ function jsonResponse($data, $code = 200) {
 
 function requireLogin() {
     if (!isLoggedIn()) {
-        header('Location: /login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
+        header('Location: ../login.php?redirect=' . urlencode($_SERVER['REQUEST_URI']));
         exit;
     }
 }

@@ -350,7 +350,7 @@ function showDetail(idx) {
         const fd = new FormData();
         fd.append('nama_obat', o.nama);
         fd.append('kategori', o.kat);
-        fetch('/api/obat_history_save.php', { method: 'POST', body: fd }).catch(() => {});
+        fetch('../api/obat_history_save.php', { method: 'POST', body: fd }).catch(() => {});
     }
 }
 

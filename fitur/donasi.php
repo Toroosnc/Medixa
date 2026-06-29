@@ -2,6 +2,7 @@
 require_once __DIR__ . '/../api/config.php';
 $basePath = '';
 sessionStart();
+requireLogin();
 
 $db = getDB();
 $penerima = $db->query("SELECT * FROM penerima_donasi WHERE status = 'approved' ORDER BY created_at DESC")->fetchAll(PDO::FETCH_ASSOC);
@@ -354,7 +355,7 @@ $penerima = $db->query("SELECT * FROM penerima_donasi WHERE status = 'approved' 
         </div>
         <h3>Belum Ada Penerima Donasi</h3>
         <p>Saat ini belum ada permohonan donasi yang disetujui. Jika Anda atau orang terdekat membutuhkan bantuan biaya pengobatan, silakan daftar sebagai penerima donasi.</p>
-        <a href="/fitur/registerPenerimaDonasi.php" class="btn-daftar-penerima">
+        <a href="registerPenerimaDonasi.php" class="btn-daftar-penerima">
             <i data-lucide="plus-circle" style="width:17px;height:17px;"></i>
             Daftar Sebagai Penerima
         </a>
@@ -474,7 +475,7 @@ document.getElementById('formDonasi').addEventListener('submit', async function(
     btn.innerHTML = '<div style="width:17px;height:17px;border:2px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;"></div> Memproses...';
     btn.disabled = true;
 
-    const res  = await fetch('/api/donasi_kirim.php', { method: 'POST', body: new FormData(this) });
+    const res  = await fetch('../api/donasi_kirim.php', { method: 'POST', body: new FormData(this) });
     const data = await res.json();
 
     const alertEl = document.getElementById('donasi-alert');

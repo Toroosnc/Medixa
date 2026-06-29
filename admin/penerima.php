@@ -74,7 +74,7 @@ foreach ($allRows as $s) { $counts['all']++; $counts[$s] = ($counts[$s] ?? 0) + 
         <table class="admin-table">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>Pemohon</th>
                     <th>Penyakit</th>
                     <th>Deskripsi</th>
@@ -160,7 +160,7 @@ async function doAction(id, action) {
     fd.append('id', id);
     fd.append('action', action);
 
-    const res  = await fetch('/api/admin_penerima_action.php', { method:'POST', body:fd });
+    const res  = await fetch('../api/admin_penerima_action.php', { method:'POST', body:fd });
     const data = await res.json();
 
     if (!data.success) { showToast(data.message, false); return; }

@@ -167,7 +167,7 @@ document.getElementById('regForm').addEventListener('submit', async function(e) 
     btn.innerHTML = '<div style="width:18px;height:18px;border:2px solid rgba(255,255,255,0.4);border-top-color:white;border-radius:50%;animation:spin .8s linear infinite;"></div> Mengirim...';
     btn.disabled = true;
 
-    const res = await fetch('/api/register_penerima.php', { method: 'POST', body: new FormData(this) });
+    const res = await fetch('../api/register_penerima.php', { method: 'POST', body: new FormData(this) });
     const data = await res.json();
     const alertEl = document.getElementById('form-alert');
     alertEl.style.display = 'block';
