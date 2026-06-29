@@ -93,7 +93,7 @@ $totalInactive= $db->query("SELECT COUNT(*) FROM users WHERE role!='admin' AND a
         <table class="admin-table" id="userTable">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>No</th>
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Telepon</th>
@@ -152,19 +152,24 @@ async function toggleUser(id, currentStatus) {
     fd.append('user_id', id);
     fd.append('aktif', newStatus);
 
-    const res  = await fetch('/api/admin_toggle_user.php', { method:'POST', body:fd });
-    const data = await res.json();
+    try {
+        const res  = await fetch('../api/admin_toggle_user.php', { method:'POST', body:fd });
+        const data = await res.json();
 
-    if (!data.success) { showToast(data.message, false); return; }
+        if (!data.success) { showToast(data.message, false); return; }
 
-    const badge  = document.getElementById('ubadge-' + id);
-    const btn    = document.getElementById('utoggle-' + id);
-    badge.className = 'badge-pill ' + (newStatus ? 'pill-green' : 'pill-red');
-    badge.textContent = newStatus ? 'Aktif' : 'Nonaktif';
-    btn.textContent   = newStatus ? 'Nonaktifkan' : 'Aktifkan';
-    btn.setAttribute('onclick', `toggleUser(${id}, ${newStatus})`);
+        const badge  = document.getElementById('ubadge-' + id);
+        const btn    = document.getElementById('utoggle-' + id);
+        badge.className = 'badge-pill ' + (newStatus ? 'pill-green' : 'pill-red');
+        badge.textContent = newStatus ? 'Aktif' : 'Nonaktif';
+        btn.textContent   = newStatus ? 'Nonaktifkan' : 'Aktifkan';
+        btn.setAttribute('onclick', `toggleUser(${id}, ${newStatus})`);
 
-    showToast(newStatus ? 'Akun berhasil diaktifkan' : 'Akun berhasil dinonaktifkan', true);
+        showToast(newStatus ? 'Akun berhasil diaktifkan' : 'Akun berhasil dinonaktifkan', true);
+    } catch (err) {
+        console.error('Toggle gagal:', err);
+        showToast('Terjadi kesalahan, coba lagi', false);
+    }
 }
 
 function filterTable() {

@@ -14,12 +14,20 @@ if (empty($email) || empty($password)) {
 }
 
 $db = getDB();
-$stmt = $db->prepare("SELECT * FROM users WHERE email = ? AND aktif = 1");
+$stmt = $db->prepare("SELECT * FROM users WHERE email = ?");
 $stmt->execute([$email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$user || !password_verify($password, $user['password'])) {
     jsonResponse(['success' => false, 'message' => 'Email atau password salah']);
+}
+
+if ($user['aktif'] == 0) {
+    echo json_encode([
+        'success' => false,
+        'message' => 'Akun Anda telah dinonaktifkan. Silakan hubungi admin.'
+    ]);
+    exit;
 }
 
 $_SESSION['user_id'] = $user['id'];
